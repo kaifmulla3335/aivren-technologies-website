@@ -42,7 +42,7 @@ export const hero = {
   headlineTop: "AiVren",
   headlineBottom: "Technologies",
   tagline: "POWERING BUSINESS WITH AI",
-  sub: "AiVren Technologies builds AI-powered systems, software and automation for manufacturing SMEs, foundries, machine shops and fabrication businesses — connecting production, quality, purchase, inventory, approvals and reporting around how a company actually works.",
+  sub: "AiVren Technologies builds AI-powered systems, software and automation for businesses across industries. We understand each customer’s specific pain points, processes and requirements, then design tailored solutions that connect production, quality, purchase, inventory, approvals, reporting and other critical operations — around how their business actually works.",
   ctaPrimary: "Explore Solutions",
   ctaPrimaryHref: `#${sectionIds.solutions}`,
   ctaSecondary: "Book Consultation",
