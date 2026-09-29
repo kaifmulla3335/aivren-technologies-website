@@ -94,7 +94,7 @@ export default function Hero() {
           >
             {hero.headlineTop}
             <br />
-            <span className="bg-clip-text text-transparent bg-aivren-gradient">
+            <span className="bg-clip-text text-transparent bg-[linear-gradient(115deg,#17E4E6_0%,#168EFF_55%,#1459DA_100%)]">
               {hero.headlineBottom}
             </span>
           </motion.h1>
