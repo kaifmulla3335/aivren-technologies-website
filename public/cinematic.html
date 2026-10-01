@@ -271,7 +271,7 @@ body{background:radial-gradient(ellipse at 75% 30%,#2f5cf018,transparent 60%),#0
       <button id="pauseBtn" class="navBtn" type="button" aria-label="Pause animation" aria-pressed="false"><svg id="pauseIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5v14m6-14v14"/></svg></button>
     </div>
   </div>
-  <div id="timeline"><div class="timelineMeta"><span id="playStatus">INTERACTIVE OPERATIONS FILM</span><span id="timeLabel">00:00 / 01:48</span></div><div id="chapters" aria-label="Scene navigation"></div><input id="seek" type="range" min="0" max="108000" step="100" value="0" aria-label="Journey timeline"></div><button id="fullscreenBtn" class="navBtn" aria-label="Enter fullscreen" title="Fullscreen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button><div id="notice" role="status"></div><div id="deptBadge"></div>
+  <div id="timeline"><div class="timelineMeta"><span id="playStatus">INTERACTIVE OPERATIONS FILM</span><span id="timeLabel">00:00 / 01:21</span></div><div id="chapters" aria-label="Scene navigation"></div><input id="seek" type="range" min="0" max="81000" step="100" value="0" aria-label="Journey timeline"></div><button id="fullscreenBtn" class="navBtn" aria-label="Enter fullscreen" title="Fullscreen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button><div id="notice" role="status"></div><div id="deptBadge"></div>
   <div class="sceneLabel"><div class="mini">What you are seeing</div><div class="main" id="visualText"></div></div>
 
   <div class="cover" id="cover">
@@ -309,7 +309,7 @@ let W=0,H=0,dpr=Math.min(devicePixelRatio||1,1.5),raf=0;
 let started=false,current=0,previous=0,transitionStart=0,transitioning=false,sceneStart=0,navLocked=true;
 let paused=false,pausedAt=0,pausedOffset=0,navUnlockAt=0,autoAdvanceAt=0;
 const playbackTime=now=>(paused?pausedAt:now)-pausedOffset;
-const TRANSITION_MS=1050, INTRO_MS=9000, SCENE_MS=12000;
+const TRANSITION_MS=750, INTRO_MS=6000, SCENE_MS=9000;
 let animationClock=0, shotProgress=0;
 const C={bg:'#050B16',wall:'#071525',wall2:'#081A28',floor:'#050B16',floor2:'#081A28',line:'#243B53',steel:'#5e6970',steel2:'#7a858b',dark:'#081A28',panel:'#071525',ai:'#55D8E8',ai2:'#6FE0EA',warn:'#d8a258',bad:'#cf6a63',ok:'#55D8E8',white:'#F5F7FA',muted:'#9BAEC3'};
 const scenes=[
@@ -532,7 +532,7 @@ let lastUI=0;
 let presentationVisible=window.parent===window,introElapsed=0,lastIntroFrame=0,resumeOnVisible=false;
 window.setCinematicVisible=visible=>{presentationVisible=visible;if(!visible&&started&&!paused){togglePause();resumeOnVisible=true}else if(visible&&resumeOnVisible){togglePause();resumeOnVisible=false}lastIntroFrame=0};
 function render(now){
- if(!started){if(presentationVisible&&!document.hidden){if(lastIntroFrame)introElapsed+=Math.min(now-lastIntroFrame,100);lastIntroFrame=now;if(introElapsed>=6500)startJourney()}else lastIntroFrame=0}
+ if(!started){if(presentationVisible&&!document.hidden){if(lastIntroFrame)introElapsed+=Math.min(now-lastIntroFrame,100);lastIntroFrame=now;if(introElapsed>=3000)startJourney()}else lastIntroFrame=0}
 
  const time=playbackTime(now),motionTime=reducedMotion.matches?0:time;animationClock=motionTime;
  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.setTransform(dpr*viewScale,0,0,dpr*viewScale,dpr*viewX,dpr*viewY);
@@ -541,7 +541,7 @@ function render(now){
  const sp=reducedMotion.matches?1:clamp(elapsed/INTRO_MS);
  if(transitioning){const p=easeInOut(clamp((time-transitionStart)/TRANSITION_MS)),left=compactLayout?0:640,width=compactLayout?360:960,edge=left+width*p;ctx.save();ctx.beginPath();ctx.rect(edge,0,width*(1-p)+100,H);ctx.clip();drawers[previous](1,motionTime,1);ctx.restore();ctx.save();ctx.beginPath();ctx.rect(left-100,0,width*p+100,H);ctx.clip();ctx.translate((1-p)*-26,0);drawers[current](1,motionTime,sp);ctx.restore();line(edge,100,edge,H-80,'#86c8d477',1.3);rr(edge-4,H*.65,8,5,1,'#c1e6eb');if(p>=1)transitioning=false}else drawers[current](1,motionTime,sp);
  if(!paused&&!transitioning&&elapsed>=SCENE_MS&&current<8)goTo(current+1);
- if(now-lastUI>90){lastUI=now;const progress=current*SCENE_MS+Math.min(elapsed,SCENE_MS);seek.value=progress;seek.setAttribute('aria-valuetext',scenes[current].dept+' ? '+formatTime(progress));document.getElementById('timeLabel').textContent=formatTime(progress)+' / 01:48';document.getElementById('playStatus').textContent=paused?'PAUSED':current===8&&elapsed>=SCENE_MS?'JOURNEY COMPLETE':'CONNECTED OPERATIONS / '+String(current+1).padStart(2,'0');dom.bar.style.width=(progress/(SCENE_MS*9)*100)+'%';chapterButtons.forEach((b,i)=>{if(i===current)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});storyRows.forEach((r,i)=>r.classList.toggle('active',i===Math.min(2,Math.floor(sp*3))))}
+ if(now-lastUI>90){lastUI=now;const progress=current*SCENE_MS+Math.min(elapsed,SCENE_MS);seek.value=progress;seek.setAttribute('aria-valuetext',scenes[current].dept+' ? '+formatTime(progress));document.getElementById('timeLabel').textContent=formatTime(progress)+' / 01:21';document.getElementById('playStatus').textContent=paused?'PAUSED':current===8&&elapsed>=SCENE_MS?'JOURNEY COMPLETE':'CONNECTED OPERATIONS / '+String(current+1).padStart(2,'0');dom.bar.style.width=(progress/(SCENE_MS*9)*100)+'%';chapterButtons.forEach((b,i)=>{if(i===current)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});storyRows.forEach((r,i)=>r.classList.toggle('active',i===Math.min(2,Math.floor(sp*3))))}
  }
  raf=requestAnimationFrame(render)
 }

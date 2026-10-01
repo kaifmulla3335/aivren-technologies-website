@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import { contact, brand, sectionIds } from "../data/content";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { validateContact } from "../contactValidation";
 
 function buildMailtoUrl(values) {
   const optional = (value) => value.trim() || "Not provided";
@@ -44,7 +44,7 @@ function buildMailtoUrl(values) {
 function FieldError({ id, message }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-1 text-[10px] text-amber-300" role="alert">
+    <p id={id} className="mt-1 text-xs text-amber-300" role="alert">
       {message}
     </p>
   );
@@ -87,22 +87,28 @@ function ContactForm() {
   });
   const [errors, setErrors] = useState({});
 
-  const setField = (key) => (e) =>
-    setValues((v) => ({ ...v, [key]: e.target.value }));
-
-  const validate = () => {
-    const next = {};
-    if (!values.name.trim()) next.name = contact.validation.name;
-    if (!EMAIL_RE.test(values.email.trim()))
-      next.email = contact.validation.email;
-    if (!values.message.trim()) next.message = contact.validation.message;
-    return next;
+  const [touched, setTouched] = useState({});
+  const validate = (nextValues = values) => validateContact(nextValues, contact.industries);
+  const setField = (key) => (e) => {
+    const value = key === "phone"
+      ? e.target.value.replace(/[^0-9]/g, "").slice(0, 10)
+      : e.target.value;
+    const nextValues = { ...values, [key]: value };
+    setValues(nextValues);
+    if (touched[key] || errors[key]) {
+      setErrors((previous) => ({ ...previous, [key]: validate(nextValues)[key] }));
+    }
+  };
+  const onBlur = (key) => () => {
+    setTouched((previous) => ({ ...previous, [key]: true }));
+    setErrors((previous) => ({ ...previous, [key]: validate()[key] }));
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     const next = validate();
     setErrors(next);
+    setTouched(Object.fromEntries(Object.keys(values).map((key) => [key, true])));
     if (Object.keys(next).length > 0) {
       const firstKey = Object.keys(next)[0];
       document.getElementById(`contact-${firstKey}`)?.focus();
@@ -134,12 +140,14 @@ function ContactForm() {
           </label>
           <input
             id="contact-name"
+            maxLength={100}
             type="text"
             autoComplete="name"
             required
             aria-required="true"
             value={values.name}
             onChange={setField("name")}
+            onBlur={onBlur("name")}
             placeholder="Your full name"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "contact-name-error" : undefined}
@@ -155,13 +163,18 @@ function ContactForm() {
           </label>
           <input
             id="contact-company"
+            maxLength={120}
             type="text"
             autoComplete="organization"
             value={values.company}
             onChange={setField("company")}
+            onBlur={onBlur("company")}
             placeholder="Company name"
-            className={inputClass(false)}
+            aria-invalid={!!errors.company}
+            aria-describedby={errors.company ? "contact-company-error" : undefined}
+            className={inputClass(!!errors.company)}
           />
+          <FieldError id="contact-company-error" message={errors.company} />
         </div>
 
         {/* Email */}
@@ -171,12 +184,14 @@ function ContactForm() {
           </label>
           <input
             id="contact-email"
+            maxLength={254}
             type="email"
             autoComplete="email"
             required
             aria-required="true"
             value={values.email}
             onChange={setField("email")}
+            onBlur={onBlur("email")}
             placeholder="you@company.com"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "contact-email-error" : undefined}
@@ -194,11 +209,18 @@ function ContactForm() {
             id="contact-phone"
             type="tel"
             autoComplete="tel-national"
+            inputMode="numeric"
+            maxLength={10}
+            pattern="[0-9]*"
             value={values.phone}
             onChange={setField("phone")}
-            placeholder="+91 …"
-            className={inputClass(false)}
+            onBlur={onBlur("phone")}
+            placeholder="10-digit mobile number"
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+            className={inputClass(!!errors.phone)}
           />
+          <FieldError id="contact-phone-error" message={errors.phone} />
         </div>
 
         {/* Industry */}
@@ -210,7 +232,10 @@ function ContactForm() {
             id="contact-industry"
             value={values.industry}
             onChange={setField("industry")}
-            className={`${inputClass(false)} appearance-none pr-9 bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff88' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>")] bg-no-repeat bg-[right_0.9rem_center]`}
+            onBlur={onBlur("industry")}
+            aria-invalid={!!errors.industry}
+            aria-describedby={errors.industry ? "contact-industry-error" : undefined}
+            className={`${inputClass(!!errors.industry)} appearance-none pr-9 bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff88' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>")] bg-no-repeat bg-[right_0.9rem_center]`}
           >
             {contact.industries.map((opt) => (
               <option
@@ -222,6 +247,7 @@ function ContactForm() {
               </option>
             ))}
           </select>
+          <FieldError id="contact-industry-error" message={errors.industry} />
         </div>
 
         {/* Requirement */}
@@ -231,12 +257,17 @@ function ContactForm() {
           </label>
           <input
             id="contact-requirement"
+            maxLength={200}
             type="text"
             value={values.requirement}
             onChange={setField("requirement")}
+            onBlur={onBlur("requirement")}
             placeholder="What do you want to automate?"
-            className={inputClass(false)}
+            aria-invalid={!!errors.requirement}
+            aria-describedby={errors.requirement ? "contact-requirement-error" : undefined}
+            className={inputClass(!!errors.requirement)}
           />
+          <FieldError id="contact-requirement-error" message={errors.requirement} />
         </div>
 
         {/* Message — full width */}
@@ -247,11 +278,13 @@ function ContactForm() {
           </label>
           <textarea
             id="contact-message"
+            maxLength={2000}
             rows={3}
             required
             aria-required="true"
             value={values.message}
             onChange={setField("message")}
+            onBlur={onBlur("message")}
             placeholder="Describe the process, delay, repetitive work or visibility problem…"
             aria-invalid={!!errors.message}
             aria-describedby={
@@ -272,7 +305,7 @@ function ContactForm() {
       </button>
 
       <p className="mt-3 text-[11px] text-white/40 text-center leading-relaxed">
-        {contact.note}
+        Fields marked * are required; other fields are optional. Your email app will open with the enquiry details ready to send.
       </p>
     </form>
   );

@@ -30,8 +30,8 @@ export const sectionIds = {
 export const nav = [
   { label: "About", href: `#${sectionIds.about}` },
   { label: "Solutions", href: `#${sectionIds.solutions}` },
-  { label: "Industries", href: `#${sectionIds.industries}` },
   { label: "AI in Action", href: `#${sectionIds.aiInAction}` },
+  { label: "Industries", href: `#${sectionIds.industries}` },
   { label: "Process", href: `#${sectionIds.process}` },
   { label: "Commercial Model", href: `#${sectionIds.commercial}` },
   { label: "Contact", href: `#${sectionIds.contact}` },

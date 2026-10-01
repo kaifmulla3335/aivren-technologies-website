@@ -32,8 +32,8 @@ export default function Navbar() {
     const ids = [
       sectionIds.about,
       sectionIds.solutions,
-      sectionIds.industries,
       sectionIds.aiInAction,
+      sectionIds.industries,
       sectionIds.process,
       sectionIds.commercial,
       sectionIds.contact,

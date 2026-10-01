@@ -39,10 +39,10 @@ export default function App() {
           <Solutions />
         </div>
 
-        <Industries />
         <section id={sectionIds.aiInAction} aria-label="AI in Action" className="section-anchor">
           <CinematicExperience />
         </section>
+        <Industries />
         <Agents />
         <Visibility />
         <Implementation />
