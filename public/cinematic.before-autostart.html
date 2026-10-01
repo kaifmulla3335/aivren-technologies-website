@@ -202,56 +202,13 @@ button:focus-visible,input:focus-visible{outline:2px solid #bbecf3;outline-offse
 #app:not(.playing) #deptBadge,#app:not(.playing) .sceneLabel,#app:not(.playing) .controls,#app:not(.playing) #timeline,#app:not(.playing) #fullscreenBtn,#app:not(.playing) .progressWrap{visibility:hidden}
 #app:not(.playing) .topbar{z-index:41}
 @media(min-width:701px) and (max-width:1100px){#app{display:block;padding:0;min-height:0}#info{display:block;position:absolute}.topbar{position:absolute;height:12%;padding:0 4%}.sceneLabel{position:absolute;margin:0;width:58%;right:4%}.controls{position:absolute;min-height:40px;padding:0}.storyRow{grid-template-columns:1fr}.storyRow span{font-size:10px}#stage{position:absolute;inset:auto 0 auto auto;top:8%;width:66%;max-width:none;align-self:auto}#deptBadge{position:absolute;top:14%;right:4%;margin:0}.vignette,.grain{z-index:0}#sceneTitle{font-size:clamp(23px,2.7cqw,32px)}#sceneLead{font-size:11px;margin:12px 0 16px}.storyRows{gap:9px}}
-
-/* Embedded section: retain the existing composition inside the available viewport. */
-.topbar{justify-content:flex-end}
-@media(min-width:701px){html.embedded #app{width:min(100vw,calc(var(--available-height,100svh) * 16 / 9))}}
-@media(max-width:700px){html.embedded #app{min-height:0}html.embedded .cover{position:absolute;height:var(--available-height,100svh)}.topbar{height:48px;align-items:center}.cover h1{font-size:clamp(30px,10vw,44px)}}
-@media(max-height:500px) and (max-width:700px){.cover{padding:20px}.cover h1{font-size:30px}.coverPromise{margin:12px 0;font-size:12px}.coverEyebrow,.coverNote{font-size:8px}}
-
-/* Shared website theme: full-width section with the same content gutters. */
-:root{--bg:#050A16;--text:#fff;--muted:#9BAEC3;--ai:#3FD4E8;--ai2:#7FE6F2}
-html,body{height:auto;background:#050A16;font-family:'IBM Plex Sans',sans-serif;display:block}
-#app,html.embedded #app{width:100%;max-width:1400px;margin:auto;aspect-ratio:auto;height:760px;min-height:0;background:transparent}
-body{background:radial-gradient(ellipse at 75% 30%,#2f5cf018,transparent 60%),#050A16}
-.cover{padding:80px 24px;background:#050A16;grid-template-columns:1fr 1fr;gap:40px;overflow:hidden}
-.coverInner{width:100%;position:relative;z-index:2}
-.cover h1,#sceneTitle{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.025em;line-height:1.1;text-shadow:none}
-.cover h1{font-size:clamp(36px,3.8vw,56px);margin:0 0 24px}
-.cover h1 em{background:linear-gradient(115deg,#17E4E6,#168EFF 65%,#1459DA);background-clip:text;color:transparent}
-.coverEyebrow,.kicker{font-size:11px;letter-spacing:.2em;color:#7FE6F2;font-weight:500}
-.coverPromise{font-size:17px;line-height:1.7;color:#ffffff99;margin:24px 0 32px}
-.coverNote{font-size:10px;line-height:1.8;color:#ffffff66}
-#info{left:24px;width:32%;top:17%}#sceneTitle{font-size:clamp(30px,3vw,44px)}
-#sceneLead{font-size:16px;color:#ffffff99}.storyRow span{font-size:13px}.storyRow b{font-size:10px}
-.topbar{padding:0 24px}.controls{left:24px}.navBtn,#backBtn,#pauseBtn{border-radius:999px}
-#deptBadge{border-radius:999px;color:#7FE6F2}.grain{display:none}
-.vignette{background:linear-gradient(90deg,#050A16,transparent 65%)}
-#stage{mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);}
-.ai-business{width:100%;max-width:600px;justify-self:center;position:relative;background:radial-gradient(ellipse,#2f5cf025,transparent 68%)}
-.ai-business svg{width:100%;height:auto;display:block;overflow:visible;font-family:'IBM Plex Sans',sans-serif}
-.ai-route{fill:none;stroke:#3fd4e8;stroke-width:1.5;stroke-dasharray:5 9;animation:ai-flow 18s linear infinite}
-.ai-orbit{fill:none;stroke:#3fd4e8;opacity:.15}.ai-node{fill:#0b1330;stroke:#7fe6f238}.ai-label{fill:#fff;font-size:15px;font-weight:500}.ai-detail{fill:#94a3b8;font-size:11px}
-.processor-orbit{transform-origin:300px 270px;animation:processor-spin 32s linear infinite}.processor-orbit.reverse{animation-direction:reverse;animation-duration:48s}
-@keyframes processor-spin{to{transform:rotate(360deg)}}
-@keyframes ai-flow{to{stroke-dashoffset:-280}}@keyframes ai-breathe{50%{opacity:.5;transform:scale(1.06)}}
-@media(min-width:701px) and (max-width:1000px){.cover{gap:16px}.cover h1{font-size:38px}.coverPromise{font-size:15px}#app,html.embedded #app{height:720px}}
-@media(max-width:700px){
- #app,html.embedded #app{height:auto;padding:0 20px 40px}
- #app:not(.playing){height:auto;padding:0}
- #app:not(.playing)>:not(.cover){display:none}
- .cover,html.embedded .cover{position:relative;inset:auto;height:auto;min-height:0;padding:64px 20px 40px;grid-template-columns:1fr;gap:24px}
- .cover.hide{display:none}.cover h1{font-size:clamp(34px,8vw,46px)}.coverPromise{font-size:16px;margin:20px 0}.coverNote{font-size:9px}
- .ai-business{max-width:480px}.topbar{padding:0}#info{display:contents}#sceneTitle{font-size:34px}#sceneLead{font-size:15px}.controls{left:auto}
-}
-
 </style>
 </head>
 <body>
 <div id="app">
   <canvas id="stage" role="img" aria-label="Animated manufacturing scene" aria-describedby="visualText"></canvas>
   <div class="vignette"></div><div class="grain"></div>
-  <div class="topbar">
+  <div class="topbar"><div class="brand"><svg class="brandMark" viewBox="0 0 32 34" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 29 16 4l13 25M9 20h14M12 29l4-8 4 8"/></svg><span>AiVren Technologies<small>MANUFACTURING INTELLIGENCE</small></span></div>
     <div class="progressWrap"><span id="chapterText" aria-live="polite" aria-atomic="true">01 / 09</span><div class="progressLine" aria-hidden="true"><i id="progressBar"></i></div></div>
   </div>
 
@@ -280,30 +237,13 @@ body{background:radial-gradient(ellipse at 75% 30%,#2f5cf018,transparent 60%),#0
       <h1>See how <em>connected AI</em> changes the company flow.</h1>
       <div class="coverPromise">Watch disconnected manufacturing work become one connected flow, from production to management.</div>
       <p>Enter a cinematic walkthrough of the same manufacturing business — first disconnected, then connected across Production, Quality, Inventory, Purchase, Maintenance and Management.</p>
-      <div class="coverNote">AiVren in action &middot; Solving business problems with connected intelligence</div>
+      <button id="enterBtn"><span>See AiVren in Action</span><span class="enterIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg></span></button>
+      <div class="coverNote">The walkthrough starts when you press play</div>
     </div>
-<div class="ai-business" role="img" aria-label="AiVren AI connects production, quality, inventory, maintenance, purchasing and management"><svg viewBox="0 0 600 560" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ai-core" x2="1" y2="1"><stop stop-color="#17E4E6"/><stop offset="1" stop-color="#2F5CF0"/></linearGradient></defs><circle class="ai-orbit" cx="300" cy="270" r="180"/><path class="ai-route" d="M300 270 Q150 270 150 122"/><path class="ai-route" d="M300 270 Q450 270 450 122"/><path class="ai-route" d="M300 270 Q115 270 115 287"/><path class="ai-route" d="M300 270 Q485 270 485 287"/><path class="ai-route" d="M300 270 Q150 270 150 452"/><path class="ai-route" d="M300 270 Q450 270 450 452"/><g class="ai-processor">
-<defs>
- <radialGradient id="processor-aura"><stop stop-color="#00dfff" stop-opacity=".3"/><stop offset=".65" stop-color="#008cff" stop-opacity=".08"/><stop offset="1" stop-color="#008cff" stop-opacity="0"/></radialGradient>
- <linearGradient id="processor-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#087eab"/><stop offset=".48" stop-color="#063853"/><stop offset="1" stop-color="#07152e"/></linearGradient>
- <filter id="processor-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-</defs>
-<circle cx="300" cy="270" r="104" fill="url(#processor-aura)"/>
-<circle cx="300" cy="270" r="90" fill="none" stroke="#20dcff" stroke-width="1" stroke-opacity=".28"/>
-<rect x="251" y="221" width="104" height="104" rx="13" fill="#010b19" stroke="#126087"/>
-<rect x="246" y="216" width="104" height="104" rx="13" fill="url(#processor-face)" stroke="#24dcff" stroke-width="1.8" filter="url(#processor-glow)"/>
-<rect x="252" y="222" width="92" height="92" rx="9" fill="none" stroke="#7fefff" stroke-opacity=".28"/>
-<path d="M257 240v-10h15m57 0h7v10m-79 55v10h15m57 0h7v-10" fill="none" stroke="#b8f8ff" stroke-width="1.5"/>
-<path d="M260 208v8m0 104v8M238 220h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M268 208v8m0 104v8M238 228h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M276 208v8m0 104v8M238 236h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M284 208v8m0 104v8M238 244h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M292 208v8m0 104v8M238 252h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M300 208v8m0 104v8M238 260h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M308 208v8m0 104v8M238 268h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M316 208v8m0 104v8M238 276h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M324 208v8m0 104v8M238 284h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M332 208v8m0 104v8M238 292h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><path d="M340 208v8m0 104v8M238 300h8m104 0h8" fill="none" stroke="#28dfff" stroke-width="2" opacity=".8"/><text x="298" y="278" text-anchor="middle" fill="#e8fdff" font-size="45" font-weight="600" filter="url(#processor-glow)">AI</text>
-<text x="298" y="300" text-anchor="middle" fill="#a7f4ff" font-size="12" font-weight="500" letter-spacing="1">AiVren</text>
-
-<text x="300" y="383" text-anchor="middle" fill="#7fe6f2" font-size="7.5" letter-spacing="1.5">CONNECTED INTELLIGENCE</text>
-</g><rect class="ai-node" x="65" y="90" width="170" height="64" rx="16"/><circle cx="81" cy="113" r="3" fill="#3fd4e8"/><text class="ai-label" x="93" y="118">Production</text><text class="ai-detail" x="81" y="137">Smarter workflows</text><rect class="ai-node" x="365" y="90" width="170" height="64" rx="16"/><circle cx="381" cy="113" r="3" fill="#3fd4e8"/><text class="ai-label" x="393" y="118">Quality</text><text class="ai-detail" x="381" y="137">Detect issues early</text><rect class="ai-node" x="30" y="255" width="170" height="64" rx="16"/><circle cx="46" cy="278" r="3" fill="#3fd4e8"/><text class="ai-label" x="58" y="283">Inventory</text><text class="ai-detail" x="46" y="302">Stay one step ahead</text><rect class="ai-node" x="400" y="255" width="170" height="64" rx="16"/><circle cx="416" cy="278" r="3" fill="#3fd4e8"/><text class="ai-label" x="428" y="283">Maintenance</text><text class="ai-detail" x="416" y="302">Keep business moving</text><rect class="ai-node" x="65" y="420" width="170" height="64" rx="16"/><circle cx="81" cy="443" r="3" fill="#3fd4e8"/><text class="ai-label" x="93" y="448">Purchase</text><text class="ai-detail" x="81" y="467">Connected decisions</text><rect class="ai-node" x="365" y="420" width="170" height="64" rx="16"/><circle cx="381" cy="443" r="3" fill="#3fd4e8"/><text class="ai-label" x="393" y="448">Management</text><text class="ai-detail" x="381" y="467">Clarity in real time</text><text x="300" y="537" text-anchor="middle" fill="#7fe6f2" font-size="11" letter-spacing="2">ONE CONNECTED BUSINESS</text></svg></div>
   </div>
 </div>
 <script>
 (() => {
-if(window.parent!==window)document.documentElement.classList.add('embedded');
 const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d');
 let W=0,H=0,dpr=Math.min(devicePixelRatio||1,1.5),raf=0;
 let started=false,current=0,previous=0,transitionStart=0,transitioning=false,sceneStart=0,navLocked=true;
@@ -323,7 +263,7 @@ const scenes=[
 {dept:'Management',kicker:'Department 06 · Unified business view',title:'Management sees one operating picture instead of six separate updates.',lead:'Production, quality, inventory, purchase and maintenance come together in one decision view.',problem:'Managers are combining spreadsheets, messages and department updates manually.',action:'AiVren brings the live department summaries into one connected management dashboard.',outcome:'Decisions are based on the same current operating picture across the company.',visual:'A control-room wall combines live department status, KPIs and exceptions while a manager reviews the whole operation.'},
 {dept:'AiVren Technologies',kicker:'Connected intelligent operations',title:'From repetitive work to intelligent operations.',lead:'The result is not “more software”. It is a manufacturing business where work, information and action move together.',problem:'Disconnected operational work slows people down.',action:'AiVren connects the company flow and automates the actions that should not wait.',outcome:'Production to management — one connected, intelligent operating system.',visual:'The six department blocks resolve into one clean connected company flow, ending with the AiVren Technologies brand reveal.'}
 ];
-const dom={cover:document.getElementById('cover'),info:document.getElementById('info'),kicker:document.getElementById('kicker'),title:document.getElementById('sceneTitle'),lead:document.getElementById('sceneLead'),problem:document.getElementById('problemText'),action:document.getElementById('actionText'),outcome:document.getElementById('outcomeText'),dept:document.getElementById('deptBadge'),visual:document.getElementById('visualText'),next:document.getElementById('nextBtn'),nextLabel:document.getElementById('nextLabel'),nextIcon:document.getElementById('nextIcon'),back:document.getElementById('backBtn'),pause:document.getElementById('pauseBtn'),pauseIcon:document.getElementById('pauseIcon'),hint:document.getElementById('nextHint'),chapter:document.getElementById('chapterText'),bar:document.getElementById('progressBar')};
+const dom={cover:document.getElementById('cover'),enter:document.getElementById('enterBtn'),info:document.getElementById('info'),kicker:document.getElementById('kicker'),title:document.getElementById('sceneTitle'),lead:document.getElementById('sceneLead'),problem:document.getElementById('problemText'),action:document.getElementById('actionText'),outcome:document.getElementById('outcomeText'),dept:document.getElementById('deptBadge'),visual:document.getElementById('visualText'),next:document.getElementById('nextBtn'),nextLabel:document.getElementById('nextLabel'),nextIcon:document.getElementById('nextIcon'),back:document.getElementById('backBtn'),pause:document.getElementById('pauseBtn'),pauseIcon:document.getElementById('pauseIcon'),hint:document.getElementById('nextHint'),chapter:document.getElementById('chapterText'),bar:document.getElementById('progressBar')};
 const sceneIcons=[
  '<circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="m8 11 8-4m-8 6 8 4"/>',
  '<circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/>',
@@ -509,12 +449,12 @@ function lockNav(){navLocked=false;dom.next.disabled=false;dom.back.disabled=cur
 function goTo(idx){if(!started)return;idx=(idx+scenes.length)%scenes.length;previous=current;current=idx;transitioning=!paused&&!reducedMotion.matches&&previous!==current;transitionStart=playbackTime(performance.now());sceneStart=transitionStart;updateText(current,true);lockNav();if(compactLayout)window.scrollTo({top:0,behavior:'instant'})}
 function next(){goTo(current+1)}function back(){if(current>0)goTo(current-1)}
 function togglePause(){if(!started)return;const now=performance.now();if(paused){pausedOffset+=now-pausedAt;paused=false}else{pausedAt=now;paused=true}dom.pause.setAttribute('aria-pressed',String(paused));dom.pause.setAttribute('aria-label',paused?'Resume animation':'Pause animation');dom.pauseIcon.innerHTML=paused?'<path d="m8 5 11 7-11 7z"/>':'<path d="M9 5v14m6-14v14"/>'}
-function startJourney(){if(started)return;started=true;document.getElementById('app').classList.add('playing');dom.cover.inert=true;dom.cover.classList.add('hide');current=0;previous=0;sceneStart=playbackTime(performance.now());updateText(0,true);lockNav(INTRO_MS)}dom.next.addEventListener('click',next);dom.back.addEventListener('click',back);dom.pause.addEventListener('click',togglePause);addEventListener('keydown',e=>{
+dom.enter.addEventListener('click',()=>{if(started)return;started=true;document.getElementById('app').classList.add('playing');dom.cover.inert=true;dom.info.focus({preventScroll:true});dom.cover.classList.add('hide');current=0;previous=0;sceneStart=playbackTime(performance.now());updateText(0,true);lockNav(INTRO_MS)});dom.next.addEventListener('click',next);dom.back.addEventListener('click',back);dom.pause.addEventListener('click',togglePause);addEventListener('keydown',e=>{
  if(e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;
  if(e.key==='Escape'&&window.parent!==window){window.parent.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));return}
  if(e.target.closest('button,a,input,select,textarea'))return;
  if(started&&compactLayout&&['ArrowDown','ArrowUp'].includes(e.key))return;
- if(!started&&['Enter',' ','ArrowDown'].includes(e.key)){e.preventDefault();startJourney();return}
+ if(!started&&['Enter',' ','ArrowDown'].includes(e.key)){e.preventDefault();dom.enter.click();return}
  if(e.key===' '){e.preventDefault();togglePause();return}
  if(e.key.toLowerCase()==='f'){document.getElementById('fullscreenBtn').click();return}
  if(['ArrowDown','ArrowRight','Enter'].includes(e.key)){e.preventDefault();next()}
@@ -523,17 +463,12 @@ function startJourney(){if(started)return;started=true;document.getElementById('
 
 const app=document.getElementById('app'),seek=document.getElementById('seek'),chapterButtons=[],storyRows=[...document.querySelectorAll('.storyRow')];
 app.append(document.querySelector('.controls'));
-scenes.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Scene '+(i+1)+': '+s.dept);b.title=s.dept;b.addEventListener('click',()=>{if(!started)startJourney();goTo(i)});document.getElementById('chapters').append(b);chapterButtons.push(b)});
-seek.addEventListener('input',()=>{if(!started)startJourney();const v=Math.min(Number(seek.value),SCENE_MS*9-1);current=Math.floor(v/SCENE_MS);previous=current;sceneStart=playbackTime(performance.now())-v%SCENE_MS;transitioning=false;updateText(current,false);lockNav()});
+scenes.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Scene '+(i+1)+': '+s.dept);b.title=s.dept;b.addEventListener('click',()=>{if(!started)dom.enter.click();goTo(i)});document.getElementById('chapters').append(b);chapterButtons.push(b)});
+seek.addEventListener('input',()=>{if(!started)dom.enter.click();const v=Math.min(Number(seek.value),SCENE_MS*9-1);current=Math.floor(v/SCENE_MS);previous=current;sceneStart=playbackTime(performance.now())-v%SCENE_MS;transitioning=false;updateText(current,false);lockNav()});
 const fs=document.getElementById('fullscreenBtn');fs.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await app.requestFullscreen()}catch(e){document.getElementById('notice').textContent='Fullscreen is unavailable in this browser.'}});document.addEventListener('fullscreenchange',()=>{fs.setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen');resize()});
 const formatTime=ms=>String(Math.floor(ms/60000)).padStart(2,'0')+':'+String(Math.floor(ms/1000)%60).padStart(2,'0');
 let lastUI=0;
-// The intro plays when the section enters view, then the unchanged scene sequence starts.
-let presentationVisible=window.parent===window,introElapsed=0,lastIntroFrame=0,resumeOnVisible=false;
-window.setCinematicVisible=visible=>{presentationVisible=visible;if(!visible&&started&&!paused){togglePause();resumeOnVisible=true}else if(visible&&resumeOnVisible){togglePause();resumeOnVisible=false}lastIntroFrame=0};
 function render(now){
- if(!started){if(presentationVisible&&!document.hidden){if(lastIntroFrame)introElapsed+=Math.min(now-lastIntroFrame,100);lastIntroFrame=now;if(introElapsed>=6500)startJourney()}else lastIntroFrame=0}
-
  const time=playbackTime(now),motionTime=reducedMotion.matches?0:time;animationClock=motionTime;
  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.setTransform(dpr*viewScale,0,0,dpr*viewScale,dpr*viewX,dpr*viewY);
  const elapsed=Math.max(0,time-sceneStart);shotProgress=clamp(elapsed/SCENE_MS);
@@ -547,7 +482,7 @@ function render(now){
 }
 updateText(0,false);raf=requestAnimationFrame(render);
 // Review hook (not shown in UI): allows deterministic scene capture in local QA.
-if(new URLSearchParams(location.search).has('review'))window.__AiVrenReview={start:()=>startJourney(),scene:(i)=>{if(!started)startJourney();setTimeout(()=>{navLocked=false;transitioning=false;current=Math.max(0,Math.min(scenes.length-1,i));previous=current;sceneStart=playbackTime(performance.now())-INTRO_MS;autoAdvanceAt=0;updateText(current,false);dom.back.disabled=false;dom.next.hidden=false;dom.next.disabled=false},50)},state:()=>({started,current,transitioning,navLocked,paused})};
+if(new URLSearchParams(location.search).has('review'))window.__AiVrenReview={start:()=>dom.enter.click(),scene:(i)=>{if(!started)dom.enter.click();setTimeout(()=>{navLocked=false;transitioning=false;current=Math.max(0,Math.min(scenes.length-1,i));previous=current;sceneStart=playbackTime(performance.now())-INTRO_MS;autoAdvanceAt=0;updateText(current,false);dom.back.disabled=false;dom.next.hidden=false;dom.next.disabled=false},50)},state:()=>({started,current,transitioning,navLocked,paused})};
 })();
 </script>
 </body>
