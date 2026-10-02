@@ -4,13 +4,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
-}
-
-@media (max-width: 768px) {
-  html {
-    scroll-padding-top: 80px;
-  }
 }
 
 body {
@@ -56,13 +49,7 @@ body {
 }
 
 .section-anchor {
-  scroll-margin-top: 96px;
-}
-
-@media (max-width: 768px) {
-  .section-anchor {
-    scroll-margin-top: 80px;
-  }
+  scroll-margin-top: 0;
 }
 
 img,

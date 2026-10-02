@@ -13,9 +13,6 @@ export default function CinematicExperience() {
       const app = frame.contentDocument?.getElementById("app");
       if (app) {
         const navHeight = document.querySelector("header")?.getBoundingClientRect().height || 96;
-        const section = frame.closest("section");
-        const pageOffset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-        if (section) section.style.scrollMarginTop = `${navHeight - pageOffset}px`;
         frame.contentDocument.documentElement.style.setProperty("--available-height", `${Math.max(240, window.innerHeight - navHeight)}px`);
         setHeight(Math.ceil(app.getBoundingClientRect().height));
       }
